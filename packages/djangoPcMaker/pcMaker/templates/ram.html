@@ -1,0 +1,43 @@
+{% extends "baseLayout.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<h1>Liste des Barettes de RAM</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Marque</th>
+            <th scope="col">Frequence</th>
+            <th scope="col">Taille</th>
+        </tr>
+    </thead>
+    {% for ram in rams %}
+    <tbody>
+        <tr>
+            <td>{{ram.marque}}</td>
+            <td>{{ram.frequence}}</td>
+            <td>{{ram.taille}}</td>
+            {% if user.is_superuser %}
+            <td><a href="/pcMaker/ram/delete/{{ram.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
+            <td><a href="/pcMaker/ram/update/{{ram.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
+            {% endif %}
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+{% if user.is_superuser %}
+
+<h1>Ajouter une barette de ram</h1>
+
+<form action="/pcMaker/ram/" method="POST" class="card px-4 py-4">
+    {% csrf_token %}
+    {{ new_ram }}
+    <button type="submit" id="submit" class="btn btn-success mt-3">Ajouter</button>
+</form>
+
+{% endif %}
+
+{% endblock %}

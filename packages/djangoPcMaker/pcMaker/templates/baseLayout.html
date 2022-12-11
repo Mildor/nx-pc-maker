@@ -1,0 +1,50 @@
+<!doctype html>
+{% load static %}
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}PC Maker{% endblock %}
+    </title>
+    {% block metas %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% endblock %}
+    {% block styles %}
+    <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    {% endblock %}
+
+</head>
+
+<body>
+    {% block nav %}
+    <nav>
+        <a href="/pcMaker/motherBoard/">Cartes Mere</a>
+        <a href="/pcMaker/processeur/">Processeurs</a>
+        <a href="/pcMaker/gpu/">Cartes Graphiques</a>
+        <a class="ordi" href="/pcMaker/ordinateur/">ORDINATEURS</a>
+        <a href="/pcMaker/ram/">Barrettes de RAM</a>
+        <a href="/pcMaker/stockage/">Disque de Stockage</a>
+        {% if user.is_authenticated %}
+            <a href="/pcMaker/logout/">Se déconnecter</a>
+        {% else %}
+            <a href="/pcMaker/login/">Se connecter</a>
+        {% endif %}
+    </nav>
+    {% endblock %}
+    <main role="main" class="container top-pushed">
+        <div class="jumbotron">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+    {% block js %}
+    <script src="{% static 'node_modules/jquery-slim/dist/jquery-slim.min.js' %}"></script>
+    <script src="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.js' %}"></script>
+    <script src="{% static 'node_modules/popper.js/dist/popper.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    {% endblock %}
+</body>
+
+</html>

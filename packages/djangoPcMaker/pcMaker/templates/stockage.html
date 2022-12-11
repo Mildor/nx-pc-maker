@@ -1,0 +1,41 @@
+{% extends "baseLayout.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>Liste des Disques de stockage</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Taille</th>
+        </tr>
+    </thead>
+    {% for stockage in stockages %}
+    <tbody>
+        <tr>
+            <td>{{stockage.type}}</td>
+            <td>{{stockage.taille}}</td>
+            {% if user.is_superuser %}
+            <td><a href="/pcMaker/stockage/delete/{{stockage.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
+            <td><a href="/pcMaker/stockage/update/{{stockage.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
+            {% endif %}
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+{% if user.is_superuser %}
+
+<h1>Ajouter un Disque de stockage</h1>
+
+<form action="/pcMaker/stockage/" method="POST" class="card px-4 py-4">
+    {% csrf_token %}
+    {{ new_stock }}
+    <button type="submit" id="submit" class="btn btn-success mt-3">Ajouter</button>
+</form>
+
+{% endif %}
+
+
+{% endblock %}

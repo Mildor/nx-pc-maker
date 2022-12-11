@@ -1,0 +1,55 @@
+{% extends "baseLayout.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>Liste des Ordinateurs</h1>
+<table class="table">
+    <thead>
+        <tr>
+            {% if request.path != "/pcMaker/ordinateur/configs/" %}<th scope="col">Utilisateur</th>{% endif %}
+            <th scope="col">Carte Graphique</th>
+            <th scope="col">Processeur</th>
+            <th scope="col">Motherboard</th>
+            <th scope="col">Ram</th>
+            <th scope="col">Stockage</th>
+            <th scope="col">Alimentation</th>
+        </tr>
+    </thead>
+    {% for ordinateur in ordinateurs %}
+    <tbody>
+        <tr>
+            {% if request.path != "/pcMaker/ordinateur/configs/" %}<td>{{ordinateur.user}}</td>{% endif %}
+            <td>{{ordinateur.gpu}}</td>
+            <td>{{ordinateur.processeur}}</td>
+            <td>{{ordinateur.motherBoard}}</td>
+            <td>{{ordinateur.ram}}</td>
+            <td>{{ordinateur.get_stockage}}</td>
+            <td>{{ordinateur.alimentation}}W</td>
+            {% if ordinateur.user == cur_user or user.is_superuser %}
+            <td><a href="/pcMaker/ordinateur/delete/{{ordinateur.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
+            <td><a href="/pcMaker/ordinateur/update/{{ordinateur.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
+            {% endif %}
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+{% if user.is_authenticated %}
+
+{% if request.path != "/pcMaker/ordinateur/configs/" %}
+<a class="btn btn-primary w-100" href="/pcMaker/ordinateur/configs/">Mes configs</a>
+{% endif %}
+
+<h1>Ajouter un ordinateur</h1>
+
+<form action="/pcMaker/ordinateur/" method="POST" class="card px-4 py-4">
+    {% csrf_token %}
+    {{ new_ordinateur }}
+    <button type="submit" id="submit" class="btn btn-success mt-3">Ajouter</button>
+</form>
+
+{% endif %}
+
+
+{% endblock %}

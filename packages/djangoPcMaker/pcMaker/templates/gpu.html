@@ -1,0 +1,43 @@
+{% extends "baseLayout.html" %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>Liste des Gpu</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Marque</th>
+            <th scope="col">Modele</th>
+        </tr>
+    </thead>
+    {% for gpu in gpus %}
+    <tbody>
+        <tr>
+            <td>{{gpu.marque}}</td>
+            <td>{{gpu.modele}}</td>
+            {% if user.is_superuser %}
+            <td><a href="/pcMaker/gpu/delete/{{gpu.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
+            <td><a href="/pcMaker/gpu/update/{{gpu.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
+            {% endif %}
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+{% if user.is_superuser %}
+
+<h1>Ajouter un GPU</h1>
+
+<form action="/pcMaker/gpu/" method="POST" class="card px-4 py-4">
+    {% csrf_token %}
+    {{ new_gpu }}
+    <button type="submit" id="submit" class="btn btn-success mt-3">Ajouter</button>
+</form>
+
+{% endif %}
+
+
+{% endblock %}
