@@ -20,8 +20,8 @@
             <td>{{ram.frequence}}</td>
             <td>{{ram.taille}}</td>
             {% if user.is_superuser %}
-            <td><a href="/pcMaker/ram/delete/{{ram.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
-            <td><a href="/pcMaker/ram/update/{{ram.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
+            <td><a data-cy="ram_delete" href="/pcMaker/ram/delete/{{ram.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
+            <td><a data-cy="ram_modify" href="/pcMaker/ram/update/{{ram.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
             {% endif %}
         </tr>
     </tbody>
@@ -35,7 +35,7 @@
 <form action="/pcMaker/ram/" method="POST" class="card px-4 py-4">
     {% csrf_token %}
     {{ new_ram }}
-    <button type="submit" id="submit" class="btn btn-success mt-3">Ajouter</button>
+    <button type="submit" id="submit" data-cy="ram_submit" class="btn btn-success mt-3">Ajouter</button>
 </form>
 
 {% endif %}

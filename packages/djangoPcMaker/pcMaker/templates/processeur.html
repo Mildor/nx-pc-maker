@@ -21,8 +21,8 @@
             <td>{{processeur.categorie}}</td>
             <td>{{processeur.modele}}</td>
             {% if user.is_superuser %}
-            <td><a href="/pcMaker/processeur/delete/{{processeur.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
-            <td><a href="/pcMaker/processeur/update/{{processeur.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
+            <td><a data-cy="processeur_delete" href="/pcMaker/processeur/delete/{{processeur.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
+            <td><a data-cy="processeur_modify" href="/pcMaker/processeur/update/{{processeur.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
             {% endif %}
         </tr>
     </tbody>
@@ -36,7 +36,7 @@
 <form action="/pcMaker/processeur/" method="POST" class="card px-4 py-4">
     {% csrf_token %}
     {{ new_proco }}
-    <button type="submit" id="submit" class="btn btn-success mt-3">Ajouter</button>
+    <button type="submit" id="submit" data-cy="processeur_submit" class="btn btn-success mt-3">Ajouter</button>
 </form>
 
 {% endif %}

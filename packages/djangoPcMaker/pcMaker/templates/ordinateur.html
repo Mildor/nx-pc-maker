@@ -27,8 +27,8 @@
             <td>{{ordinateur.get_stockage}}</td>
             <td>{{ordinateur.alimentation}}W</td>
             {% if ordinateur.user == cur_user or user.is_superuser %}
-            <td><a href="/pcMaker/ordinateur/delete/{{ordinateur.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
-            <td><a href="/pcMaker/ordinateur/update/{{ordinateur.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
+            <td><a data-cy="ordinateur_delete" href="/pcMaker/ordinateur/delete/{{ordinateur.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
+            <td><a data-cy="ordinateur_modify" href="/pcMaker/ordinateur/update/{{ordinateur.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
             {% endif %}
         </tr>
     </tbody>
@@ -46,7 +46,7 @@
 <form action="/pcMaker/ordinateur/" method="POST" class="card px-4 py-4">
     {% csrf_token %}
     {{ new_ordinateur }}
-    <button type="submit" id="submit" class="btn btn-success mt-3">Ajouter</button>
+    <button type="submit" id="submit" data-cy="ordinateur_submit" class="btn btn-success mt-3">Ajouter</button>
 </form>
 
 {% endif %}

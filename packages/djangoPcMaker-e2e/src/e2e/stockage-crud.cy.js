@@ -16,41 +16,35 @@ beforeEach(() => {
 describe('CRUD CG', () => {
 
   it('create', () => {
-    cy.get('input[id*="id_type"]').should("be.visible")
-    cy.get('input[id*="id_type"]').type("TES")
+    cy.get('[data-cy="stockage_Type"]').should("be.visible").type("TES")
 
-    cy.get('input[id*="id_taille"]').should("be.visible")
-    cy.get('input[id*="id_taille"]').type("9999")
+    cy.get('[data-cy="stockage_Taille"]').should("be.visible").type("9999")
 
-    cy.get('button[type*="submit"]').should("be.visible")
-    cy.get('button[type*="submit"]').click()
+    cy.get('[data-cy="stockage_submit"]').should("be.visible").click()
 
     cy.get('table').contains('td', 'TES').should('be.visible');
     cy.get('table').contains('td', '9999').should('be.visible');
   })
 
   it('Modify', ()=>{
-    const parent = cy.get('tbody').contains('td', 'TES').parent();
-    parent.children("td").contains("a", "Modifier").should("be.visible").click();
+    const parent = cy.contains("tr","TES").children();
+    parent.find('[data-cy="stockage_modifiy"]').click();
 
-    cy.get('input[id*="id_type"]').should("be.visible").clear()
-    cy.get('input[id*="id_type"]').type("MOD")
+    cy.get('[data-cy="stockage_Type"]').should("be.visible").clear().type("CYP")
 
-    cy.get('input[id*="id_taille"]').should("be.visible").clear()
-    cy.get('input[id*="id_taille"]').type("8888")
+    cy.get('[data-cy="stockage_Taille"]').should("be.visible").clear().type("8888")
 
-    cy.get('button[type*="submit"]').should("be.visible")
-    cy.get('button[type*="submit"]').contains("Modifier").click()
+    cy.get('[data-cy="stockage_submit"]').should("be.visible").contains("Modifier").click()
 
-    cy.get('table').contains('td', 'MOD').should('be.visible');
+    cy.get('table').contains('td', 'CYP').should('be.visible');
     cy.get('table').contains('td', '8888').should('be.visible');
   })
 
   it('Delete', ()=>{
-    const parent = cy.get('tbody').contains('td', 'MOD').parent();
-    parent.children("td").contains("a", "Supprimer").should("be.visible").click();
+    const parent = cy.contains("tr","CYP").children();
+    parent.find('[data-cy="stockage_delete"]').click();
 
-    cy.get('table').contains('td', 'MOD').should('not.exist');
+    cy.get('table').contains('td', 'CYP').should('not.exist');
     cy.get('table').contains('td', '8888').should('not.exist');
   })
 

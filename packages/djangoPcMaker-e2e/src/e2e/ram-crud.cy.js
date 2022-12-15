@@ -16,17 +16,13 @@ beforeEach(() => {
 describe('CRUD ram', () => {
 
   it('create', () => {
-    cy.get('input[id*="id_marque"]').should("be.visible")
-    cy.get('input[id*="id_marque"]').type("TEST")
+    cy.get('[data-cy="ram_Marque"]').should("be.visible").type("TEST")
 
-    cy.get('input[id*="id_frequence"]').should("be.visible")
-    cy.get('input[id*="id_frequence"]').type("0000")
+    cy.get('[data-cy="ram_Frequence"]').should("be.visible").type("0000")
 
-    cy.get('input[id*="id_taille"]').should("be.visible")
-    cy.get('input[id*="id_taille"]').type("1")
+    cy.get('[data-cy="ram_Taille"]').should("be.visible").type("1")
 
-    cy.get('button[type*="submit"]').should("be.visible")
-    cy.get('button[type*="submit"]').click()
+    cy.get('[data-cy="ram_submit"]').should("be.visible").click()
 
     cy.get('table').contains('td', 'TEST').should('be.visible');
     cy.get('table').contains('td', '0000').should('be.visible');
@@ -34,31 +30,27 @@ describe('CRUD ram', () => {
   })
 
   it('Modify', ()=>{
-    const parent = cy.get('tbody').contains('td', 'TEST').parent();
-    parent.children("td").contains("a", "Modifier").should("be.visible").click();
+    const parent = cy.contains("tr","TEST").children();
+    parent.find('[data-cy="ram_modify"]').click();
 
-    cy.get('input[id*="id_marque"]').should("be.visible").clear()
-    cy.get('input[id*="id_marque"]').type("MOD")
+    cy.get('[data-cy="ram_Marque"]').should("be.visible").clear().type("CYP")
 
-    cy.get('input[id*="id_frequence"]').should("be.visible").clear()
-    cy.get('input[id*="id_frequence"]').type("1000")
+    cy.get('[data-cy="ram_Frequence"]').should("be.visible").clear().type("1000")
 
-    cy.get('input[id*="id_taille"]').should("be.visible").clear()
-    cy.get('input[id*="id_taille"]').type("11")
+    cy.get('[data-cy="ram_Taille"]').should("be.visible").clear().type("11")
 
-    cy.get('button[type*="submit"]').should("be.visible")
-    cy.get('button[type*="submit"]').contains("Modifier").click()
+    cy.get('[data-cy="ram_submit"]').should("be.visible").contains("Modifier").click()
 
-    cy.get('table').contains('td', 'MOD').should('be.visible');
+    cy.get('table').contains('td', 'CYP').should('be.visible');
     cy.get('table').contains('td', '1000').should('be.visible');
     cy.get('table').contains('td', '11').should('be.visible');
   })
 
   it('Delete', ()=>{
-    const parent = cy.get('tbody').contains('td', 'MOD').parent();
-    parent.children("td").contains("a", "Supprimer").should("be.visible").click();
+    const parent = cy.contains("tr","CYP").children();
+    parent.find('[data-cy="ram_delete"]').click();
 
-    cy.get('table').contains('td', 'MOD').should('not.exist');
+    cy.get('table').contains('td', 'CYP').should('not.exist');
     cy.get('table').contains('td', '1000').should('not.exist');
     cy.get('table').contains('td', '11').should('not.exist');
   })

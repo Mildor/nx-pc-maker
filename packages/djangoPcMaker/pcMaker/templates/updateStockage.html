@@ -11,7 +11,7 @@
 <form action="" method="POST" class="card px-4 py-4">
     {% csrf_token %}
     {{ new_stock }}
-    <button type="submit" id="submit" class="btn btn-success mt-3">Modifier</button>
+    <button data-cy="stockage_submit" type="submit" id="submit" class="btn btn-success mt-3">Modifier</button>
 </form>
 
 {% endif %}

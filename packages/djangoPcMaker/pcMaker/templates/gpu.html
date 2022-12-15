@@ -19,8 +19,8 @@
             <td>{{gpu.marque}}</td>
             <td>{{gpu.modele}}</td>
             {% if user.is_superuser %}
-            <td><a href="/pcMaker/gpu/delete/{{gpu.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
-            <td><a href="/pcMaker/gpu/update/{{gpu.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
+            <td><a data-cy="gpu_delete" href="/pcMaker/gpu/delete/{{gpu.id}}"><button class="btn btn-danger mb-3">Supprimer</button></a></td>
+            <td><a data-cy="gpu_modify" href="/pcMaker/gpu/update/{{gpu.id}}"><button class="btn btn-warning mb-3">Modifier</button></a></td>
             {% endif %}
         </tr>
     </tbody>
@@ -34,7 +34,7 @@
 <form action="/pcMaker/gpu/" method="POST" class="card px-4 py-4">
     {% csrf_token %}
     {{ new_gpu }}
-    <button type="submit" id="submit" class="btn btn-success mt-3">Ajouter</button>
+    <button type="submit" id="submit" data-cy="gpu_submit" class="btn btn-success mt-3">Ajouter</button>
 </form>
 
 {% endif %}
